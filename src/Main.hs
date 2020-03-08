@@ -11,12 +11,13 @@ main = do
     mapM_ putStrLn . map copyToClipboard $ passwords
 
 generatePasswords :: (RandomGen g) => Int -> g -> IO [String]
-generatePasswords 0 _ = return []
-generatePasswords n gen = do
-    let password = generatePassword gen
-    gen <- newStdGen
-    remainingPasswords <- generatePasswords (n - 1) gen
-    return $ password : remainingPasswords
+generatePasswords n gen
+    | n <= 0 = return []
+    | otherwise = do
+        let password = generatePassword gen
+        gen <- newStdGen
+        remainingPasswords <- generatePasswords (n - 1) gen
+        return $ password : remainingPasswords
 
 generatePassword :: (RandomGen g) => g -> String
 generatePassword = take 16 . filterChars . randomRs ('0','z')
