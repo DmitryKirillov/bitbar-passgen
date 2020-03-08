@@ -4,7 +4,7 @@ import System.Random
 
 main :: IO ()
 main = do
-    putStrLn "Passwords"
+    putStrLn "PassGen"
     putStrLn "---"
     gen <- getStdGen
     passwords <- generatePasswords 10 gen
@@ -29,4 +29,7 @@ filterChars =
 
 copyToClipboard :: String -> String
 copyToClipboard str =
-    str ++ " | bash='/bin/bash' param1='-c' param2='/bin/echo -n " ++ str ++ "\\c | pbcopy' terminal=false"
+    str
+    ++ " | bash='/bin/bash' param1='-c' param2='/bin/echo -n "
+    ++ str
+    ++ "\\c | pbcopy' terminal=false"
